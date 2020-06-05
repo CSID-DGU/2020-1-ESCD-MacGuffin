@@ -9,13 +9,13 @@ class App extends Component {
     information: [
     {
       id: 0,
-      name: '김민준',
-      phone: '010-0000-0000'
+      name: 'APPLE MacBook Pro 13형',
+      phone: '000-000-00-000'
     },
     {
       id:1,
-      name: '홍길동',
-      phone: '010-0000-0001'
+      name: 'APPLE 21.5형 iMac',
+      phone: '000-000-00-001'
     }
   ],
   keyword: ''
@@ -60,7 +60,7 @@ class App extends Component {
         />
         <p>
           <input
-            placeholder="검색 할 이름을 입력하세요.."
+            placeholder="검색 할 자산을 입력하세요.."
             onChange={this.handleChange}
             value={keyword}
             />
@@ -71,8 +71,12 @@ class App extends Component {
           onRemove={this.handleRemove}
           onUpdate={this.handleUpdate}/>
       </div>
+
+      
+
     );
   }
+
 }
 
 export default App;

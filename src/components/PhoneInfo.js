@@ -4,8 +4,8 @@ import React, {Component} from 'react';
 class PhoneInfo extends Component{
     static defaultProps={
         info: {
-            name: '이름',
-            phone: '010-0000-0000',
+            name: '자산 명',
+            phone: '000-000-00 000',
             id:0
         },
     }
