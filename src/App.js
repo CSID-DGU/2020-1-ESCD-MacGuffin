@@ -2,6 +2,10 @@
 import React, { Component } from 'react';
 import PhoneForm from './components/PhoneForm';
 import PhoneInfoList from './components/PhoneInfoList';
+import Login from './Login';
+import Signup from './Signup';
+import SassComponent from "./SassComponent";
+
 
 class App extends Component {
   id = 2
@@ -70,10 +74,21 @@ class App extends Component {
           data={filteredList}
           onRemove={this.handleRemove}
           onUpdate={this.handleUpdate}/>
+          
+        <hr/>
+        <div>
+        <Login/>
+        </div>
+        <hr/>
+
+        <div>
+        <Signup/>
+        </div>
+
       </div>
 
+        
       
-
     );
   }
 
