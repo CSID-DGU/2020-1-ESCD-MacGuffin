@@ -1,0 +1,6 @@
+{
+  "host": "0.0.0.0",
+  "port": "8080",
+  "jwtSecret": "ka)apqqmQ-)",
+  "jwtExpireIn": "1d"
+}

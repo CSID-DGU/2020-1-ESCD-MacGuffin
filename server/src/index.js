@@ -1,46 +1,43 @@
 const express = require('express')
-const mysql = require('mysql2');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const fs = require('fs');
+const routes = require('./routes');
+const databaseUtils = require('./databaseUtils')
+const morgan = require('morgan');
+
+const SERVER_CONFIG = JSON.parse(fs.readFileSync('server.json', 'utf-8'));
+
 const app = express()
-const port = 3000
 
-function createConnection() {
-    return mysql.createConnection({
-        host     : 'localhost',
-        user     : 'root',
-        password : '5688',
-        database : 'assetmanager'
-      });
-}
+/**
+ * application/json 형식 body parser
+ */
+app.use(bodyParser.json());
 
-app.get('/assets', (req, res) => {
-    const connection = createConnection();
-    connection.connect();
+/**
+ * cookie parser
+ */
+app.use(cookieParser());
 
-    connection.query('SELECT * FROM assetmanager.asset', (error, rows, fields) => {
-        if (error) throw error;
-        res.json(rows);
-    });
+/**
+ * logger
+ */
+app.use(morgan('tiny'));
 
-    connection.end();
-})
+app.use('/api/session', routes.sessionRouter);
 
-app.get('/assets/:assetId', (req, res) => {
-    const assetId = req.params.assetId;
-
-    const connection = createConnection();
-    connection.connect();
-
-    connection.query(`SELECT * FROM assetmanager.asset WHERE ID='${assetId}'`, (error, rows, fields) => {
-        if (error) throw error;
-
-        if (rows.length === 0) {
-            res.status(404).end();
-        } else {
-            res.json(rows[0]);
-        }
-    });
-
-    connection.end();
-})
-
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+databaseUtils.testConnection()
+    .then(() => {
+        console.log('DB Connection succeed.');
+        app.listen(
+            SERVER_CONFIG.port,
+            SERVER_CONFIG.host,
+            () => console.log(`Server listening at http://${SERVER_CONFIG.host}:${SERVER_CONFIG.port}`)
+        )
+    })
+    .catch(error => {
+        console.error('DB Connection Failed.');
+        console.error(error);
+        process.exit(1);
+    })
