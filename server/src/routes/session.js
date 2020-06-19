@@ -1,20 +1,13 @@
 const express = require('express');
 const tokenUtils = require('../tokenUtils');
 const databaseUtils = require('../databaseUtils');
+const middlewares = require('../middlewares');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
-    let token;
-
-    try {
-        token = await tokenUtils.verifyToken(req.cookies.token);
-    } catch (e) {
-        return unauthorized(res);
-    }
-
+router.get('/', middlewares.verifyToken, async (req, res) => {
     const session = {
-        userId: token.userId,
+        userId: req.token.userId,
     }
 
     return res
@@ -44,7 +37,11 @@ router.post('/', async (req, res) => {
             .status(201)
             .end();
     } else {
-        return unauthorized(res);
+        res.clearCookie('token');
+
+        return res
+            .status(401)
+            .end();
     }
 });
 
@@ -55,13 +52,5 @@ router.delete('/', async (req, res) => {
         .status(204)
         .end();
 });
-
-function unauthorized(res) {
-    res.clearCookie('token');
-
-    return res
-        .status(401)
-        .end();
-}
 
 module.exports = router;
