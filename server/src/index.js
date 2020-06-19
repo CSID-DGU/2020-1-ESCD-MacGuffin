@@ -26,6 +26,7 @@ app.use(cookieParser());
 app.use(morgan('tiny'));
 
 app.use('/api/session', routes.sessionRouter);
+app.use('/api/users', routes.usersRouter);
 
 databaseUtils.testConnection()
     .then(() => {
