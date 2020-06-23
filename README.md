@@ -1,3 +1,25 @@
+<<<<<<< HEAD
+=======
+# 2020-1-기업사회맞춤형프로젝트 Team MacGuffin
+## 역할 분담
+<table>
+	<th>팀원</th>
+	<th>역할</th>
+	<tr><!-- 첫번째 줄 시작 -->
+	    <td>장준표</td>
+	    <td>HW+프론트엔드</td>
+	</tr><!-- 첫번째 줄 끝 -->
+	<tr><!-- 두번째 줄 시작 -->
+	    <td>김영훈</td>
+	    <td>백엔드</td>
+	</tr><!-- 두번째 줄 끝 -->
+  <tr><!-- 세번째 줄 시작 -->
+	    <td>박범수</td>
+	    <td>프론트엔드+백엔드</td>
+	</tr><!-- 세번째 줄 끝 -->
+</table>
+
+>>>>>>> fd587dd06db4c37c83e0c7c204522cba3bb019de
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
