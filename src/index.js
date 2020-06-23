@@ -7,6 +7,9 @@ import configureStore from 'redux/configureStore';
 
 const store = configureStore();
 
+
+const port = process.env.PORT || 4000; // PORT 값이 설정되어있지 않다면 4000 을 사용합니다.
+
 ReactDOM.render(<Root store={store}/>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

@@ -1,0 +1,42 @@
+.Positioner{
+    display: flex;
+    flex-direction: column;
+    
+    top: 0px;
+    width: 100%;
+    box-shadow: gray;
+}
+
+/* 흰 배경, 내용 중간 정렬 */
+.WhiteBackground {
+    background: white;
+    
+    justify-content: center;
+    height: auto;
+}
+
+/* 해더의 내용 */
+.HeaderContents {
+    width: 1200px;
+    height: 55px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+/*로고*/
+.Logo{
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    color: teal;
+    font-family: "고딕";
+}
+
+/* 하단 그래디언트 테두리*/
+.GradientBorder {
+    height: 3px;
+    background: linear-gradient(to right, teal, cyan);
+}

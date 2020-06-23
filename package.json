@@ -7,8 +7,14 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
     "cross-env": "^7.0.2",
+    "express": "^4.17.1",
     "immutable": "^4.0.0-rc.12",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "morgan": "^1.10.0",
     "open-color": "^1.7.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -18,7 +24,8 @@
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
     "redux-pender": "^2.0.12",
-    "styled-components": "^5.1.1"
+    "styled-components": "^5.1.1",
+    "validator": "^13.1.1"
   },
   "scripts": {
     "start": "cross-env NODE_PATH=src react-scripts start",
@@ -40,5 +47,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:8080"
 }
