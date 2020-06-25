@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 =======
 # 2020-1-기업사회맞춤형프로젝트 Team MacGuffin
 ## 역할 분담
@@ -19,7 +18,6 @@
 	</tr><!-- 세번째 줄 끝 -->
 </table>
 
->>>>>>> fd587dd06db4c37c83e0c7c204522cba3bb019de
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
