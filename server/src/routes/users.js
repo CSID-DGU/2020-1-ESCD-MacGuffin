@@ -2,26 +2,27 @@ const express = require('express');
 const databaseUtils = require('../databaseUtils');
 const crypto = require('crypto');
 const middlewares = require('../middlewares');
+const queryUtils = require('../queryUtils');
 
 const router = express.Router();
 
 router.get('/', middlewares.verifyToken, async (req, res) => {
 
     const connection = await databaseUtils.createConnection();
-    const result = await connection.query(`SELECT UserId AS userId, UserName AS userName FROM AssetManager.user`);
+    const [ users ] = await connection.query(queryUtils.user.list());
 
     return res
         .status(200)
-        .json(result[0])
+        .json(users)
 });
 
 router.get('/:userId', middlewares.verifyToken, async (req, res) => {
     const userId = req.params.userId;
 
     const connection = await databaseUtils.createConnection();
-    const result = await connection.query(`SELECT UserId AS userId, UserName AS userName FROM AssetManager.user WHERE \`UserId\`='${userId}'`);
+    const [ users ] = await connection.query(queryUtils.user.list({ userId: userId }));
 
-    if (!result[0][0]) {
+    if (!users[0]) {
         return res
             .status(404)
             .end();
@@ -29,7 +30,7 @@ router.get('/:userId', middlewares.verifyToken, async (req, res) => {
 
     return res
         .status(200)
-        .json(result[0][0])
+        .json(users[0])
 });
 
 
@@ -39,14 +40,14 @@ router.post('/', middlewares.validateRequestBody({ userId: 'string', password: '
     const userName = req.body.userName;
 
     const connection = await databaseUtils.createConnection();
-    const result = await connection.query(`SELECT COUNT(*) AS 'Exists' FROM AssetManager.user WHERE \`UserId\`='${userId}'`)
+    const [ users ] = await connection.query(queryUtils.user.list({ userId: userId }));
 
-    if (result[0][0].Exists) {
+    if (users[0]) {
         return res
             .status(409)
             .end();
     }
-    await connection.query(`INSERT INTO \`user\` (\`UserId\`, \`Password\`, \`UserName\`) VALUES ('${userId}', '${password}', '${userName}')`)
+    await connection.query(queryUtils.user.insert({ userId: userId, password: password, userName: userName }));
 
     await connection.end();
 
@@ -58,7 +59,7 @@ router.post('/', middlewares.validateRequestBody({ userId: 'string', password: '
 router.delete('/:userId', middlewares.verifyToken, async (req, res) => {
     const userId = req.params.userId;
     const connection = await databaseUtils.createConnection();
-    await connection.query(`DELETE FROM user WHERE \`UserId\`='${userId}'`);
+    await connection.query(queryUtils.user.delete({ userId: userId }));
     await connection.end();
 
     if (req.token.userId === userId) {

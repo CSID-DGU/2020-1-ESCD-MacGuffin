@@ -3,6 +3,7 @@ const tokenUtils = require('../tokenUtils');
 const databaseUtils = require('../databaseUtils');
 const middlewares = require('../middlewares');
 const crypto = require('crypto');
+const queryUtils = require('../queryUtils');
 
 const router = express.Router();
 
@@ -21,10 +22,10 @@ router.post('/', middlewares.validateRequestBody({ userId: 'string', password: '
     const password = crypto.createHash('sha512').update(req.body.password).digest('base64');
 
     const connection = await databaseUtils.createConnection();
-    const result = await connection.query(`SELECT COUNT(*) AS \`Exists\` FROM \`user\` WHERE \`UserId\`='${userId}' AND \`PASSWORD\`='${password}'`)
+    const [ users ] = await connection.query(queryUtils.user.list({ userId: userId, password: password }));
     await connection.end();
 
-    if (result[0][0].Exists) {
+    if (users[0]) {
         const token = await tokenUtils.generateToken(
             {
                 userId: userId,
