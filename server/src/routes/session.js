@@ -10,7 +10,7 @@ const router = express.Router();
 router.get('/', middlewares.verifyToken, middlewares.asyncHandler(async (req, res) => {
     const session = {
         userId: req.token.userId,
-    }
+    };
 
     return res
         .status(200)

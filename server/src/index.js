@@ -1,14 +1,14 @@
-const express = require('express')
+const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const fs = require('fs');
 const routes = require('./routes');
-const databaseUtils = require('./databaseUtils')
+const databaseUtils = require('./databaseUtils');
 const morgan = require('morgan');
 
 const SERVER_CONFIG = JSON.parse(fs.readFileSync('server.json', 'utf-8'));
 
-const app = express()
+const app = express();
 
 /**
  * application/json 형식 body parser
@@ -40,11 +40,11 @@ databaseUtils.testConnection()
         app.listen(
             SERVER_CONFIG.port,
             SERVER_CONFIG.host,
-            () => console.log(`Server listening at http://${SERVER_CONFIG.host}:${SERVER_CONFIG.port}`)
-        )
+            () => console.log(`Server listening at http://${SERVER_CONFIG.host}:${SERVER_CONFIG.port}`),
+        );
     })
     .catch(error => {
         console.error('DB Connection Failed.');
         console.error(error);
         process.exit(1);
-    })
+    });

@@ -13,7 +13,7 @@ router.get('/', middlewares.verifyToken, middlewares.asyncHandler(async (req, re
 
     return res
         .status(200)
-        .json(users)
+        .json(users);
 }));
 
 router.get('/:userId', middlewares.verifyToken, middlewares.asyncHandler(async (req, res) => {
@@ -30,7 +30,7 @@ router.get('/:userId', middlewares.verifyToken, middlewares.asyncHandler(async (
 
     return res
         .status(200)
-        .json(users[0])
+        .json(users[0]);
 }));
 
 

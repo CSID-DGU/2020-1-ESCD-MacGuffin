@@ -10,7 +10,7 @@ function generateToken(payload, options) {
             SERVER_CONFIG.jwtSecret,
             {
                 expiresIn: SERVER_CONFIG.jwtExpireIn,
-                ...options
+                ...options,
             },
             (error, token) => {
                 if (error) {
@@ -18,9 +18,9 @@ function generateToken(payload, options) {
                 }
 
                 resolve(token);
-            }
-        )
-    })
+            },
+        );
+    });
 }
 
 function verifyToken(token) {
@@ -34,12 +34,12 @@ function verifyToken(token) {
                 }
 
                 resolve(decoded);
-            }
+            },
         );
-    })
+    });
 }
 
 module.exports = {
     generateToken,
     verifyToken,
-}
+};
