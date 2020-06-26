@@ -33,7 +33,7 @@ router.get('/:userId', middlewares.verifyToken, async (req, res) => {
 });
 
 
-router.post('/', async (req, res) => {
+router.post('/', middlewares.validateRequestBody({ userId: 'string', password: 'string', userName: 'string' }), async (req, res) => {
     const userId = req.body.userId;
     const password = crypto.createHash('sha512').update(req.body.password).digest('base64');
     const userName = req.body.userName;

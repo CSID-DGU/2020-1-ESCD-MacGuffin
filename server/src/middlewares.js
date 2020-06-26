@@ -1,5 +1,17 @@
 const tokenUtils = require('./tokenUtils');
 
+function validateRequestBody(filters) {
+    return (req, res, next) => {
+        if (Object.keys(filters).some(key => typeof req.body[key] !== filters[key])) {
+            return res
+                .status(400)
+                .end();
+        }
+
+        return next();
+    };
+}
+
 async function verifyToken(req, res, next) {
     let token;
 
@@ -17,5 +29,6 @@ async function verifyToken(req, res, next) {
 }
 
 module.exports = {
+    validateRequestBody,
     verifyToken,
 }
