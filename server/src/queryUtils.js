@@ -29,6 +29,22 @@ const userQuery = {
 };
 Object.setPrototypeOf(userQuery, baseQuery);
 
+const assetQuery = {
+    table: 'asset',
+    visibleColumns: [
+        'assetId',
+        'category',
+        'name',
+        'username',
+        'price',
+        'acquiredDate',
+        'managerName',
+        'lastModifiedDate',
+    ],
+};
+Object.setPrototypeOf(assetQuery, baseQuery);
+
 module.exports = {
+    asset: assetQuery,
     user: userQuery,
 };

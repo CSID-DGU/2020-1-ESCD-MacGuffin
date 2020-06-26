@@ -27,6 +27,7 @@ app.use(morgan('tiny'));
 
 app.use('/api/session', routes.sessionRouter);
 app.use('/api/users', routes.usersRouter);
+app.use('/api/assets', routes.assetsRouter);
 app.use((error, req, res, next) => {
     res
         .status(500)
