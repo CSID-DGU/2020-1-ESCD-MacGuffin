@@ -29,6 +29,8 @@ app.use('/api/session', routes.sessionRouter);
 app.use('/api/users', routes.usersRouter);
 app.use('/api/assets', routes.assetsRouter);
 app.use((error, req, res, next) => {
+    console.error(error.message);
+
     res
         .status(500)
         .json({ message: error.message });
