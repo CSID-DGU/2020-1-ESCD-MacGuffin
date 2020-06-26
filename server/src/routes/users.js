@@ -6,7 +6,7 @@ const queryUtils = require('../queryUtils');
 
 const router = express.Router();
 
-router.get('/', middlewares.verifyToken, async (req, res) => {
+router.get('/', middlewares.verifyToken, middlewares.asyncHandler(async (req, res) => {
 
     const connection = await databaseUtils.createConnection();
     const [ users ] = await connection.query(queryUtils.user.list());
@@ -14,9 +14,9 @@ router.get('/', middlewares.verifyToken, async (req, res) => {
     return res
         .status(200)
         .json(users)
-});
+}));
 
-router.get('/:userId', middlewares.verifyToken, async (req, res) => {
+router.get('/:userId', middlewares.verifyToken, middlewares.asyncHandler(async (req, res) => {
     const userId = req.params.userId;
 
     const connection = await databaseUtils.createConnection();
@@ -31,10 +31,10 @@ router.get('/:userId', middlewares.verifyToken, async (req, res) => {
     return res
         .status(200)
         .json(users[0])
-});
+}));
 
 
-router.post('/', middlewares.validateRequestBody({ userId: 'string', password: 'string', userName: 'string' }), async (req, res) => {
+router.post('/', middlewares.validateRequestBody({ userId: 'string', password: 'string', userName: 'string' }), middlewares.asyncHandler(async (req, res) => {
     const userId = req.body.userId;
     const password = crypto.createHash('sha512').update(req.body.password).digest('base64');
     const userName = req.body.userName;
@@ -54,9 +54,9 @@ router.post('/', middlewares.validateRequestBody({ userId: 'string', password: '
     return res
         .status(201)
         .end();
-});
+}));
 
-router.delete('/:userId', middlewares.verifyToken, async (req, res) => {
+router.delete('/:userId', middlewares.verifyToken, middlewares.asyncHandler(async (req, res) => {
     const userId = req.params.userId;
     const connection = await databaseUtils.createConnection();
     await connection.query(queryUtils.user.delete({ userId: userId }));
@@ -69,6 +69,6 @@ router.delete('/:userId', middlewares.verifyToken, async (req, res) => {
     return res
         .status(204)
         .end();
-});
+}));
 
 module.exports = router;

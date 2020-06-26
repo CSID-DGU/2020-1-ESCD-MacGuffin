@@ -7,7 +7,7 @@ const queryUtils = require('../queryUtils');
 
 const router = express.Router();
 
-router.get('/', middlewares.verifyToken, async (req, res) => {
+router.get('/', middlewares.verifyToken, middlewares.asyncHandler(async (req, res) => {
     const session = {
         userId: req.token.userId,
     }
@@ -15,9 +15,9 @@ router.get('/', middlewares.verifyToken, async (req, res) => {
     return res
         .status(200)
         .json(session);
-});
+}));
 
-router.post('/', middlewares.validateRequestBody({ userId: 'string', password: 'string' }), async (req, res) => {
+router.post('/', middlewares.validateRequestBody({ userId: 'string', password: 'string' }), middlewares.asyncHandler(async (req, res) => {
     const userId = req.body.userId;
     const password = crypto.createHash('sha512').update(req.body.password).digest('base64');
 
@@ -45,14 +45,14 @@ router.post('/', middlewares.validateRequestBody({ userId: 'string', password: '
             .status(401)
             .end();
     }
-});
+}));
 
-router.delete('/', async (req, res) => {
+router.delete('/', middlewares.asyncHandler(async (req, res) => {
     res.clearCookie('token');
 
     return res
         .status(204)
         .end();
-});
+}));
 
 module.exports = router;
