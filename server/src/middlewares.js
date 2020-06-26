@@ -2,7 +2,23 @@ const tokenUtils = require('./tokenUtils');
 
 function validateRequestBody(filters) {
     return (req, res, next) => {
-        if (Object.keys(filters).some(key => typeof req.body[key] !== filters[key])) {
+        const invalid = Object.keys(filters)
+            .some(key => {
+                switch (filters[key]) {
+                    case 'undefined':
+                    case 'object':
+                    case 'boolean':
+                    case 'number':
+                    case 'string':
+                        return typeof req.body[key] !== filters[key];
+                    case 'array':
+                        return !Array.isArray(req.body[key]);
+                    default:
+                        return true;
+                }
+            });
+
+        if (invalid) {
             return res
                 .status(400)
                 .end();

@@ -32,19 +32,33 @@ Object.setPrototypeOf(userQuery, baseQuery);
 const assetQuery = {
     table: 'asset',
     visibleColumns: [
-        'assetId',
+        'asset.assetId AS assetId',
         'category',
         'name',
         'username',
         'price',
         'acquiredDate',
+        'locationName',
         'managerName',
         'lastModifiedDate',
     ],
+    list(filters) {
+        return `SELECT ${this.visibleColumns.join(',')} FROM ${this.table} LEFT JOIN stock ON asset.assetId=stock.assetId LEFT JOIN location ON stock.locationId=location.locationId${this.generateWhereClause(filters)}`;
+    },
 };
 Object.setPrototypeOf(assetQuery, baseQuery);
+
+const stockQuery = {
+    table: 'stock',
+    visibleColumns: [
+        'assetId',
+        'locationId',
+    ],
+};
+Object.setPrototypeOf(stockQuery, baseQuery);
 
 module.exports = {
     asset: assetQuery,
     user: userQuery,
+    stock: stockQuery,
 };
