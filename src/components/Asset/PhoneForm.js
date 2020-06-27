@@ -25,6 +25,7 @@ class PhoneForm extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
+                <p></p>
                 <input
                     placeholder="자산 이름"
                     value={this.state.name}

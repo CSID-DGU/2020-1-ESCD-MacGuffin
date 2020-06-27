@@ -6,7 +6,8 @@ class PhoneInfo extends Component{
         info: {
             name: '자산 명',
             phone: '000-000-00 000',
-            State:'O',
+            locationId: '000-000-00 000',
+            State: 'O',
             ADate:'2020.06.14',
             id:0
         },

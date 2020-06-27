@@ -5,11 +5,12 @@ import HeaderContainer from 'containers/Base/HeaderContainer';
 
 import storage from 'lib/storage';
 import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
+import {bindActionCreators, applyMiddleware} from 'redux';
 import * as userActions from 'redux/modules/user';
 
 
 class App extends Component {
+    
 
     initializeUserInfo = async () => {
         const loggedInfo = storage.get('loggedInfo'); // 로그인 정보를 로컬스토리지에서 가져옵니다.
@@ -22,7 +23,7 @@ class App extends Component {
             storage.remove('loggedInfo');
             window.location.href = '/auth/login?expired';
         }
-        window.location.href='/asset';         
+        window.location.href='/asset_debug';         
     }
 
     componentDidMount() {
@@ -40,6 +41,7 @@ class App extends Component {
         );
     }
 }
+
 
 export default connect(
     null,

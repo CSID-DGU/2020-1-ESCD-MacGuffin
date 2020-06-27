@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import * as authActions from 'redux/modules/auth';
 import * as userActions from 'redux/modules/user';
 import storage from 'lib/storage';
+import axios from 'axios';
 
 class Login extends Component {
 
@@ -35,24 +36,24 @@ class Login extends Component {
 
     handleLocalLogin = async()=>{
         const{form, AuthActions, UserActions, history}= this.props;
-        const {email, password} = form.toJS();
-
+        const {userId, password} = form.toJS();
         try {
-            await AuthActions.localLogin({password});
+            console.log('authactions')
+            await AuthActions.localLogin({userId, password});
+            console.log('로그인 성공')
             const loggedInfo = this.props.result.toJS();
-
-            UserActions.setLoggedInfo(loggedInfo);
-            history.push('/');
+            history.push('/asset_debug');
             storage.set('loggedInfo', loggedInfo);
+            console.log('로컬스토리지에 저장 성공')    
         } catch(e) {
             console.log('a');
+            console.log('로그인 실패')
             this.setError(' 잘못된 계정정보입니다.');
         }
-
     }
 
     render() {
-        const { email, password } = this.props.form.toJS(); // form 에서 email 과 password 값을 읽어옴
+        const { userId, password } = this.props.form.toJS(); // form 에서 userId 과 password 값을 읽어옴
         const { handleChange } = this;
         const { error } = this.props;
 
@@ -60,9 +61,9 @@ class Login extends Component {
             <AuthContent title="로그인">
                 <InputWithLabel 
                     label="이메일" 
-                    name="email" 
+                    name="userId" 
                     placeholder="이메일" 
-                    value={email} 
+                    value={userId} 
                     onChange={handleChange}
                 />
                 <InputWithLabel 

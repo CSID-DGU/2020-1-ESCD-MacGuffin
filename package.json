@@ -15,6 +15,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "morgan": "^1.10.0",
+    "ngrok": "^3.2.7",
     "open-color": "^1.7.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -48,5 +49,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "http://52.78.190.152"
 }

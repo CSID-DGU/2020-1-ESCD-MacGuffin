@@ -12,16 +12,15 @@ const LOCAL_REGISTER = 'auth/LOCAL_REGISTER'; // 이메일 가입
 const LOCAL_LOGIN = 'auth/LOCAL_LOGIN'; // 이메일 로그인
 const SET_ERROR = 'auth/SET_ERROR'; // 오류 설정
 
-const LOGOUT = 'auth/LOGOUT'; // 로그아웃
+
 
 export const changeInput = createAction(CHANGE_INPUT); //  { form, name, value }
 export const initializeForm = createAction(INITIALIZE_FORM); // form 
 export const checkEmailExists = createAction(CHECK_EMAIL_EXISTS, AuthAPI.checkEmailExists); // email
-export const checkUsernameExists = createAction(CHECK_USERNAME_EXISTS, AuthAPI.checkUsernameExists); // username
 export const localRegister = createAction(LOCAL_REGISTER, AuthAPI.localRegister); // { email, username, password }
 export const localLogin = createAction(LOCAL_LOGIN, AuthAPI.localLogin); // { email, password }
 
-export const logout = createAction(LOGOUT, AuthAPI.logout);
+
 
 export const setError = createAction(SET_ERROR); // { form, message }
 

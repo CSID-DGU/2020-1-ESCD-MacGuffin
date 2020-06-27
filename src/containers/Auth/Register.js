@@ -19,7 +19,7 @@ class Register extends Component {
 
         if(error) return; // 현재 에러가 있는 상태라면 진행하지 않음
         if(!validate['email'](email)
-        || !validate['username'](username)
+        // username은 중복될 수 있음
         || !validate['password'](password)
         || !validate['passwordConfirm'](passwordConfirm)){
             // 하나라도 실패하면 진행하지 않음
@@ -42,7 +42,7 @@ class Register extends Component {
             // 에러 처리하기
             if(e.response.status === 409) {
                 const { key } = e.response.data;
-                const message = key === 'email' ? '이미 존재하는 이메일입니다.': '이미 존재하는 아이디입니다.';
+                const message = key === 'email' ? '이미 존재하는 이메일입니다.': '이메일이 아닌 다른 문제입니다.(구 아이디가 중복됩니다.)';
                 return this.setError(message);
             }
             this.setError('알 수 없는 에러가 발생했습니다.')
@@ -59,20 +59,6 @@ class Register extends Component {
                 this.setError(null);
             }
         } catch (e) {
-            console.log(e);
-        }
-    }, 300)
-
-    checkUsernameExists = debounce(async (username) =>{
-        const {AuthActions} =this.props;
-        try{
-            await AuthActions.chechUsernameExists(username);
-            if(this.props.exists.get('username')){
-                this.setError('이미 존재하는 아이디입니다.');
-            } else {
-                this.setError(null);
-            }
-        }catch(e){
             console.log(e);
         }
     }, 300)
@@ -135,7 +121,7 @@ class Register extends Component {
         if(name.indexOf('password')>-1||!validation) return; //비밀번호 검증이거나, 검증 실패하면 여기서 마
     
         // TODO: 이메일, 아이디 중복 확인
-        const check = name ==='email' ? this.checkEmailExists: this.chechUsernameExists; // name에 따라 이메일체크할지 아이디 체크할지 결정
+        const check = this.checkEmailExists; // 이메일체크
         check(value);
     }
 

@@ -30,10 +30,12 @@ class Header extends Component {
             <div className="Positioner">
             <div className="WhiteBackground">
                 <div className="HeaderContents">
-                    <div className="Logo">MACGUFFIN</div>
+                    <div className="Logo">MACGUFFIN </div>
+                    <dib className="UserName"></dib>
                     <div className="button">
                     <LogoutButton/>
                     </div>
+
                 </div>
             </div>
             <div classname="GradientBorder"></div>
