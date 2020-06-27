@@ -2,8 +2,8 @@ const tokenUtils = require('./tokenUtils');
 
 function validateRequestBody(filters) {
     return (req, res, next) => {
-        const invalid = Object.keys(filters)
-            .some(key => {
+        const invalidKeys = Object.keys(filters)
+            .filter(key => {
                 switch (filters[key]) {
                     case 'undefined':
                     case 'object':
@@ -18,10 +18,10 @@ function validateRequestBody(filters) {
                 }
             });
 
-        if (invalid) {
+        if (invalidKeys.length > 0) {
             return res
                 .status(400)
-                .end();
+                .json(invalidKeys.map(key => `'${key}' should be ${filters[key]}`));
         }
 
         return next();
