@@ -10,6 +10,7 @@ router.get('/', middlewares.verifyToken, middlewares.asyncHandler(async (req, re
 
     const connection = await databaseUtils.createConnection();
     const [ assets ] = await connection.query(`${queryUtils.asset.list()} WHERE userEmail='${userId}' OR managerEmail='${userId}'`);
+    await connection.end();
 
     return res
         .status(200)

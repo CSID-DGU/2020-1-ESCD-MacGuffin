@@ -17,24 +17,28 @@ router.post('/', middlewares.validateRequestBody({ assetId: 'array', locationId:
             await connection.query(queryUtils.stock.insert({ assetId: assetId, locationId: locationId }));
         } catch (e) {
             if (e.errno === 1452) {
+                await connection.end();
                 return res
                     .status(404)
                     .end();
             }
 
             if (e.errno === 1062) {
+                await connection.end();
                 return res
                     .status(409)
                     .end();
             }
         }
 
+        await connection.end();
         return res
             .status(201)
             .end();
     } else {
         await connection.query(`${queryUtils.stock.delete({ assetId: assetId, locationId: locationId })}`);
 
+        await connection.end();
         return res
             .status(204)
             .end();

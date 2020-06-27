@@ -10,6 +10,7 @@ router.get('/', middlewares.verifyToken, middlewares.asyncHandler(async (req, re
 
     const connection = await databaseUtils.createConnection();
     const [ users ] = await connection.query(queryUtils.user.list());
+    await connection.end();
 
     return res
         .status(200)
@@ -21,6 +22,7 @@ router.get('/:userId', middlewares.verifyToken, middlewares.asyncHandler(async (
 
     const connection = await databaseUtils.createConnection();
     const [ users ] = await connection.query(queryUtils.user.list({ userId: userId }));
+    await connection.end();
 
     if (!users[0]) {
         return res
@@ -43,6 +45,7 @@ router.post('/', middlewares.validateRequestBody({ userId: 'string', password: '
     const [ users ] = await connection.query(queryUtils.user.list({ userId: userId }));
 
     if (users[0]) {
+        await connection.end();
         return res
             .status(409)
             .end();
