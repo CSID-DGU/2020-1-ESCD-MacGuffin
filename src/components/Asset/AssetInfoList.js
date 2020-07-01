@@ -1,8 +1,8 @@
 // src/components/PhoneInfoList.js
 import React, {Component} from 'react';
-import PhoneInfo from './PhoneInfo';
+import PhoneInfo from './AssetInfo';
 
-class PhoneInfoList extends Component{
+class AssetInfoList extends Component{
     static defaultProps = {
         list: [],
         onRemove: () => console.warn('onRemove not defined'),
@@ -14,8 +14,9 @@ class PhoneInfoList extends Component{
     }
 
     render() {
-        console.log('render PhoneInfoList');
-
+        console.log('render AssetInfoList');
+        console.log('###assetinfoList###')
+        console.log(this.list)
 
         const {data, onRemove, onUpdate }=this.props;
         const list = data.map(
@@ -35,4 +36,4 @@ class PhoneInfoList extends Component{
     }
 }
 
-export default PhoneInfoList;
+export default AssetInfoList;

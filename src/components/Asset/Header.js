@@ -31,7 +31,7 @@ class Header extends Component {
             <div className="WhiteBackground">
                 <div className="HeaderContents">
                     <div className="Logo">MACGUFFIN </div>
-                    <dib className="UserName"></dib>
+                    <div className="UserName"></div>
                     <div className="button">
                     <LogoutButton/>
                     </div>

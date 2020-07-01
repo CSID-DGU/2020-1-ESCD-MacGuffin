@@ -22,8 +22,7 @@ class App extends Component {
         } catch (e) {
             storage.remove('loggedInfo');
             window.location.href = '/auth/login?expired';
-        }
-        window.location.href='/asset_debug';         
+        }         
     }
 
     componentDidMount() {
@@ -36,7 +35,7 @@ class App extends Component {
                 <HeaderContainer/>
                 <Route exact path="/" component={Home}/>
                 <Route path="/auth" component={Auth}/>
-                <Route path="/asset_debug" component={Asset}/>
+                <Route path="/asset" component={Asset}/>
             </div>
         );
     }

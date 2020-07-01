@@ -1,7 +1,7 @@
 // file: src/component/PhoneInfo.js
 import React, {Component} from 'react';
 
-class PhoneInfo extends Component{
+class AssetInfo extends Component{
     static defaultProps={
         info: {
             acquiredDate: "",
@@ -13,7 +13,6 @@ class PhoneInfo extends Component{
             name: "",
             price: 0,
             username: "",
-            id:0
         },
     }
 
@@ -88,7 +87,8 @@ class PhoneInfo extends Component{
     }
 
     render(){
-        console.log('render PhoneInfo '+ this.props.info.id)
+        console.log('render Asset Id: '+ this.props.info.assetid)
+        console.log('render Asset info: '+ this.props.info)
         const style={
             border: '1px solid black',
             padding: '8px',
@@ -161,4 +161,4 @@ class PhoneInfo extends Component{
     }
 }
 
-export default PhoneInfo;
+export default AssetInfo;
