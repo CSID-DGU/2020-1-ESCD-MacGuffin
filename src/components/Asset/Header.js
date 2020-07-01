@@ -38,7 +38,7 @@ class Header extends Component {
 
                 </div>
             </div>
-            <div classname="GradientBorder"></div>
+            <div className="GradientBorder"></div>
         </div>
         );
     }

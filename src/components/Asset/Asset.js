@@ -9,31 +9,23 @@ import { configure } from '@testing-library/react';
 
 class Asset extends Component {
   
+  
   initializeUserInfo = async () => { 
     const { information }=this.state;
     try {
       console.log('자산불러오기')
       //자산 정보에 자산 집어넣기
       await  axios.get('/api/assets')
-      .then(function(response){
-        console.log('response[0]:')
-        console.log(response[0])
-
+      .then((response)=>{
         console.log("###자산정보 information에 삽입###")
-        information.push(response.data[0])
-        
-        console.log('###information[0] 출력####')
-        console.log(information[0].assetId)
-        console.log(information[1].assetId)
+        for (var index in response.data){
+          information.push(response.data[index])
+        }
       });
-      
-
       console.log('자산불러오기 성공');
   } catch(e) {
     console.error("Error response");
-    //console.error(e.response.data);    // ***
-    //console.error(e.response.status);  // ***
-    //console.error(e.response.headers);
+
       console.log(e);
       console.log('자산불러오기 실패');
   }
@@ -45,34 +37,7 @@ class Asset extends Component {
 
   id = 3
   state={
-    information: [ 
-     {
-            acquiredDate: "2018-06-26T00:00:00.000Z",
-            assetId: "86.112.94.211",
-            category: "BOOK",
-            lastModifiedDate: "2020-06-26T18:23:47.000Z",
-            locationName: null,
-            managerName: "김순자",
-            name: "삼성노트북-E9JN24H",
-            price: 700000,
-            username: "김말자"
-    },
-    /*
-    {
-      id:1,
-      name: 'APPLE 21.5형 iMac',
-      phone: '000-000-00-001',
-      State: 'O',
-      ADate: '2020-06-10'
-    },
-    {
-      id:2,
-      name: 'I Phone SE2 64G',
-      phone: '000-000-00-002',
-      State: 'X',
-      ADate: '2020-06-05'
-    }*/
-  ],
+    information: [],
   keyword: ''
   }
   handleChange = (e) => {
@@ -103,6 +68,10 @@ class Asset extends Component {
     })
   }
 
+  debug = () =>{
+    console.log("###FOR DEBUG###")
+  }
+
   render() {
     const { information, keyword}=this.state;
     const filteredList = information.filter(
@@ -120,8 +89,9 @@ class Asset extends Component {
             />
         </p>
         <hr/>
-        <div id="Asset"><b>&nbsp;&nbsp;관리중인 자산목록</b></div>
- 
+        <div id="Asset"><b>&nbsp;&nbsp;관리중인 자산목록<button onClick={this.handleUpdate}>자산 목록 업데이트</button></b></div>
+       
+        
 
         <AssetInfoList 
           //data={filteredList}
