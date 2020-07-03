@@ -53,7 +53,7 @@ class AssetInfoList extends Component{
       componentDidMount() {
         this.initializeUserInfo();
       }
-
+      
     shouldComponentUpdate(nextProps, nextState){
         return nextProps.data !== this.props.data;
     }

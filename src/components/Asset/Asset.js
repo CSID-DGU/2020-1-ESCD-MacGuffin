@@ -18,9 +18,13 @@ class Asset extends Component {
       await  axios.get('/api/assets')
       .then((response)=>{
         console.log("###자산정보 information에 삽입###")
+        this.setState({
+          information: response.data
+        })
         for (var index in response.data){
           information.push(response.data[index])
         }
+        console.log(response.data)
       });
       console.log('자산불러오기 성공');
   } catch(e) {
@@ -45,6 +49,10 @@ class Asset extends Component {
       keyword: e.target.value,
     });
   }
+  handleAssetUpdate = () => {
+    this.initializeUserInfo();
+  }
+
   handleCreate = (data) =>{
     const {information} =this.state;
     this.setState({
@@ -58,6 +66,7 @@ class Asset extends Component {
     })
   }
   handleUpdate = (id,data)=>{
+    this.initializeUserInfo();
     const {information} = this.state;
     this.setState({
       information: information.map(
@@ -66,10 +75,6 @@ class Asset extends Component {
         : info // 기존의 값을 그대로 유지
       )
     })
-  }
-
-  debug = () =>{
-    console.log("###FOR DEBUG###")
   }
 
   render() {
@@ -89,13 +94,13 @@ class Asset extends Component {
             />
         </p>
         <hr/>
-        <div id="Asset"><b>&nbsp;&nbsp;관리중인 자산목록<button onClick={this.handleUpdate}>자산 목록 업데이트</button></b></div>
+        <div id="Asset"><b>&nbsp;&nbsp;관리중인 자산목록<button onClick={this.initializeUserInfo}>자산 목록 업데이트</button></b></div>
        
         
 
         <AssetInfoList 
-          //data={filteredList}
-          data={information}
+          data={filteredList}
+          //data={information}
           onRemove={this.handleRemove}
           onUpdate={this.handleUpdate}/>
           

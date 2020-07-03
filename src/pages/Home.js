@@ -17,10 +17,10 @@ class Home extends Component {
                     <div className="f_menu">팀원명 | 학번 | 연락처 </div>
                     <div className="f_content">
                         <div>
-                            장준표 | 2016 | --
+                            장준표 | 2016112146 | jnn6576@naver.com
                         </div>
                         <div>
-                            김영훈 | 2016 | --
+                            김영훈 | 2016112136 | yhkim5688@naver.com
                         </div>
                         <div>
                             박범수 | 2018112085 | to_re@naver.com

@@ -12,11 +12,17 @@ const Positioner = styled.div`
     transform: translate(-50%, -50%);
 `;
 
+
 // 너비, 그림자 설정
 const ShadowedBox = styled.div`
     width: 500px;
     ${shadow(2)}
+
+    @media screen and (max-width: 500px){
+        width: 100%;
+    }
 `;
+
 
 // 로고
 const LogoWrapper = styled.div`
@@ -33,6 +39,8 @@ const Logo = styled(Link)`
     font-size: 2.4rem;
     letter-spacing: 5px;
     text-decoration: none;
+
+    
 `;
 
 // children 이 들어가는 곳

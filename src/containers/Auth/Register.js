@@ -13,13 +13,13 @@ class Register extends Component {
 
     handleLocalRegister = async() => {
         const {form, AuthActions, UserActions ,error, history} = this.props;
-        const {email, username, password, passwordConfirm} =form.toJS();
+        const {userId, userName, password, passwordConfirm} =form.toJS();
 
         const {validate} =this;
 
         if(error) return; // 현재 에러가 있는 상태라면 진행하지 않음
-        if(!validate['email'](email)
-        // username은 중복될 수 있음
+        if(!validate['userId'](userId)
+        // userName은 중복될 수 있음
         || !validate['password'](password)
         || !validate['passwordConfirm'](passwordConfirm)){
             // 하나라도 실패하면 진행하지 않음
@@ -28,7 +28,7 @@ class Register extends Component {
 
         try {
             await AuthActions.localRegister({
-                email, username, password
+                userId, userName, password
             });
             const loggedInfo = this.props.result.toJS();
             console.log(loggedInfo);
@@ -42,18 +42,18 @@ class Register extends Component {
             // 에러 처리하기
             if(e.response.status === 409) {
                 const { key } = e.response.data;
-                const message = key === 'email' ? '이미 존재하는 이메일입니다.': '이메일이 아닌 다른 문제입니다.(구 아이디가 중복됩니다.)';
+                const message = key === 'userId' ? '이미 존재하는 이메일입니다.': '이메일이 아닌 다른 문제입니다.(구 아이디가 중복됩니다.)';
                 return this.setError(message);
             }
             this.setError('알 수 없는 에러가 발생했습니다.')
         }
     }
 
-    checkEmailExists = debounce(async (email) =>{
+    checkuserIdExists = debounce(async (userId) =>{
         const {AuthActions} = this.props;
         try{
-            await AuthActions.checkEmailExists(email);
-            if(this.props.exists.get('email')){
+            await AuthActions.checkuserIdExists(userId);
+            if(this.props.exists.get('userId')){
                 this.setError('이미 존재하는 이메일입니다.');
             } else {
                 this.setError(null);
@@ -74,14 +74,14 @@ class Register extends Component {
     }, 300)
 
     validate = {
-        email: (value) =>{
+        userId: (value) =>{
             if(!isEmail(value)) {
                 this.setError('잘못된 이메일 형식 입니다.');
                 return false;
             }
             return true;
         },
-        username: (value) => {
+        userName: (value) => {
             if(!isAlphanumeric(value) || !isLength(value, {min:4, max: 15})){
                 this.setError('아이디는 4~15 글자의 알파벳 혹은 숫자로 이뤄져야 합니다.');
                 return false;
@@ -121,7 +121,7 @@ class Register extends Component {
         if(name.indexOf('password')>-1||!validation) return; //비밀번호 검증이거나, 검증 실패하면 여기서 마
     
         // TODO: 이메일, 아이디 중복 확인
-        const check = this.checkEmailExists; // 이메일체크
+        const check = this.checkuserIdExists; // 이메일체크
         check(value);
     }
 
@@ -132,23 +132,23 @@ class Register extends Component {
     
     render() {
         const {error} = this.props;
-        const { email, username, password, passwordConfirm } = this.props.form.toJS();
+        const { userId, userName, password, passwordConfirm } = this.props.form.toJS();
         const { handleChange } = this;
 
         return (
             <AuthContent title="회원가입">
                 <InputWithLabel 
                     label="이메일"
-                    name="email"
+                    name="userId"
                     placeholder="이메일" 
-                    value={email} 
+                    value={userId} 
                     onChange={handleChange}
                 />
                 <InputWithLabel 
                     label="아이디" 
-                    name="username" 
+                    name="userName" 
                     placeholder="아이디" 
-                    value={username} 
+                    value={userName} 
                     onChange={handleChange}
                 />
                 <InputWithLabel 

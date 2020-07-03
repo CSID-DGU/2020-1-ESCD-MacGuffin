@@ -42,7 +42,7 @@ class Login extends Component {
             await AuthActions.localLogin({userId, password});
             console.log('로그인 성공')
             const loggedInfo = this.props.result.toJS();
-            history.push('/asset');
+            window.location.href = '/asset'
             storage.set('loggedInfo', loggedInfo);
             console.log('로컬스토리지에 저장 성공')    
         } catch(e) {

@@ -17,7 +17,7 @@ const SET_ERROR = 'auth/SET_ERROR'; // 오류 설정
 export const changeInput = createAction(CHANGE_INPUT); //  { form, name, value }
 export const initializeForm = createAction(INITIALIZE_FORM); // form 
 export const checkEmailExists = createAction(CHECK_EMAIL_EXISTS, AuthAPI.checkEmailExists); // email
-export const localRegister = createAction(LOCAL_REGISTER, AuthAPI.localRegister); // { email, username, password }
+export const localRegister = createAction(LOCAL_REGISTER, AuthAPI.localRegister); // { email, userName, password }
 export const localLogin = createAction(LOCAL_LOGIN, AuthAPI.localLogin); // { email, password }
 
 
@@ -28,20 +28,20 @@ export const setError = createAction(SET_ERROR); // { form, message }
 const initialState = Map({
     register: Map({
         form: Map({
-            email: '',
-            username: '',
+            userId: '',
+            userName: '',
             password: '',
             passwordConfirm: ''
         }),
         exists: Map({
-            email: false,
+            userId: false,
             password: false
         }),
         error: null
     }),
     login: Map({
         form: Map({
-            email: '',
+            userId: '',
             password: ''
         }),
         error: null
