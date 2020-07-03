@@ -1,5 +1,5 @@
 에셋 리스트 조회
-POST /assets
+GET /assets
   request: None
   response:
     Success:
